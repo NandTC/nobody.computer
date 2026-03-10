@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nobody and the computer</title>
+  <meta name="description" content="AI-generated films, music, and experiments. A project by nobody, made with the computer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080808;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --text: #d4d4d4;
+      --muted: #555555;
+      --accent: #e8e8e8;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.98), rgba(8,8,8,0));
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 2.5rem 5rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 6vw, 5.5rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+    }
+
+    .hero-title span {
+      color: var(--muted);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      border-color: var(--text);
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2.5rem;
+    }
+
+    /* SECTION */
+    section {
+      padding: 6rem 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    /* VIDEOS */
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .video-card:hover {
+      border-color: #333;
+    }
+
+    .video-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #0d0d0d;
+    }
+
+    .video-info {
+      padding: 1rem 1.25rem;
+    }
+
+    .video-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      line-height: 1.5;
+      margin-bottom: 0.4rem;
+    }
+
+    .video-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .videos-more {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: var(--accent);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+      line-height: 1.9;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* PATREON */
+    .patreon-block {
+      border: 1px solid var(--border);
+      padding: 4rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .patreon-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .patreon-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--accent);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .patreon-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.25rem;
+      }
+
+      .hero {
+        padding: 0 1.5rem 4rem;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .divider {
+        margin: 0 1.5rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .patreon-block {
+        padding: 2.5rem 1.5rem;
+      }
+
+      footer {
+        padding: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">nobody.computer</span>
+    <ul class="nav-links">
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#collective">Collective</a></li>
+      <li><a href="https://www.youtube.com/@nobodyandthecomputer" target="_blank" rel="noopener">YouTube ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-eyebrow">AI · Film · Music · Experiments</p>
+    <h1 class="hero-title">nobody<br/><span>and the computer</span></h1>
+    <p class="hero-sub">
+      A creative project exploring what happens when human ideas meet machine processes —
+      mixing film, music, and things that don't have a name yet.
+    </p>
+    <div class="hero-actions">
+      <a href="#videos" class="btn btn-primary">Watch</a>
+      <a href="https://patreon.com/NobodyandTheComputer" target="_blank" rel="noopener" class="btn">Join the Collective</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- VIDEOS -->
+  <section id="videos">
+    <p class="section-label">Latest videos</p>
+    <div class="videos-grid">
+
+      <!-- VIDEO 1 — replace VIDEO_ID_1 with a real YouTube video ID -->
+      <div class="video-card">
+        <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID_1" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-info">
+          <p class="video-title">Video title here</p>
+          <p class="video-desc">Short description of what this video is about.</p>
+        </div>
+      </div>
+
+      <!-- VIDEO 2 -->
+      <div class="video-card">
+        <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID_2" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-info">
+          <p class="video-title">Video title here</p>
+          <p class="video-desc">Short description of what this video is about.</p>
+        </div>
+      </div>
+
+      <!-- VIDEO 3 -->
+      <div class="video-card">
+        <iframe class="video-embed" src="https://www.youtube.com/embed/VIDEO_ID_3" title="Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-info">
+          <p class="video-title">Video title here</p>
+          <p class="video-desc">Short description of what this video is about.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="videos-more">
+      <a href="https://www.youtube.com/@nobodyandthecomputer" target="_blank" rel="noopener" class="btn">See all videos ↗</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About the project</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>made by nobody,<br/>with the computer.</h2>
+        <p>
+          nobody and the computer is a one-person experiment in AI-assisted creativity —
+          mixing found footage, generated images, synthesized sound, and whatever tools
+          exist at the edge of what machines can do.
+        </p>
+        <p>
+          No studio. No crew. Just ideas, algorithms, and a lot of late nights.
+        </p>
+        <div class="about-tags">
+          <span class="tag">AI film</span>
+          <span class="tag">Music</span>
+          <span class="tag">Generative art</span>
+          <span class="tag">Video essays</span>
+          <span class="tag">Experiments</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <h2>the process.</h2>
+        <p>
+          Each piece starts with a feeling or an obsession — then gets passed through
+          whatever combination of AI tools, editing workflows, and happy accidents
+          produces something worth sharing.
+        </p>
+        <p>
+          The computer is not a replacement for the human part. It's the collaborator
+          that never sleeps, never judges, and occasionally surprises.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- COLLECTIVE / PATREON -->
+  <section id="collective">
+    <p class="section-label">The nobodies collective</p>
+    <div class="patreon-block">
+      <p class="patreon-eyebrow">Support the work</p>
+      <h2 class="patreon-title">join the nobodies collective</h2>
+      <p class="patreon-desc">
+        A community of people who believe weird creative experiments are worth making.
+        Support the project on Patreon and get access to behind-the-scenes process,
+        early releases, and whatever else nobody decides to share.
+      </p>
+      <a href="https://patreon.com/NobodyandTheComputer" target="_blank" rel="noopener" class="btn btn-primary">Become a nobody ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">nobody and the computer — nobody.computer</span>
+    <ul class="footer-links">
+      <li><a href="https://www.youtube.com/@nobodyandthecomputer" target="_blank" rel="noopener">YouTube</a></li>
+      <li><a href="https://patreon.com/NobodyandTheComputer" target="_blank" rel="noopener">Patreon</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
