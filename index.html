@@ -230,6 +230,109 @@
       text-align: center;
     }
 
+    /* PROJECTS */
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+      padding-bottom: 5rem;
+      margin-bottom: 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .project-media {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .project-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .project-media-placeholder {
+      aspect-ratio: 16 / 9;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-media-placeholder span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .project-info {
+      padding-top: 0.25rem;
+    }
+
+    .project-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    .project-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+
+    .project-links .project-link:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .project-link:hover { color: var(--accent); }
+    .project-link-primary { color: var(--accent); }
+    .project-link-disabled { opacity: 0.3; pointer-events: none; }
+
+    .project-link .arrow { transition: transform 0.2s; }
+    .project-link:hover .arrow { transform: translateX(3px); }
+
     /* ABOUT */
     .about-grid {
       display: grid;
@@ -363,6 +466,11 @@
         margin: 0 1.5rem;
       }
 
+      .project-row {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
       .about-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -386,9 +494,12 @@
   <nav>
     <span class="nav-logo">nobody.computer</span>
     <ul class="nav-links">
+      <li><a href="/films">Films</a></li>
       <li><a href="#videos">Videos</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#collective">Collective</a></li>
+      <li><a href="https://patreon.com/NobodyandTheComputer" target="_blank" rel="noopener">Patreon ↗</a></li>
       <li><a href="https://www.youtube.com/@nobodyandthecomputer" target="_blank" rel="noopener">YouTube ↗</a></li>
     </ul>
   </nav>
@@ -443,6 +554,46 @@
     <div class="videos-more">
       <a href="https://www.youtube.com/@nobodyandthecomputer" target="_blank" rel="noopener" class="btn">See all videos ↗</a>
     </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projects</p>
+
+    <!-- JazzGPT MIDI -->
+    <article class="project-row">
+      <div class="project-media">
+        <!--
+          Replace with: <img src="assets/images/jazzgpt-screenshot.png" alt="JazzGPT MIDI interface" />
+          once you drop the screenshot in assets/images/
+        -->
+        <div class="project-media-placeholder">
+          <span>screenshot coming soon</span>
+        </div>
+      </div>
+      <div class="project-info">
+        <p class="project-type">Tool</p>
+        <h2 class="project-title">JazzGPT MIDI</h2>
+        <p class="project-desc">
+          A tool that converts structured musical prompts into MIDI compositions,
+          combining large language models with symbolic music generation.
+        </p>
+        <div class="project-links">
+          <a href="https://nobody.computer/jazzgpt" class="project-link project-link-primary">
+            Read more <span class="arrow">→</span>
+          </a>
+          <a href="https://www.patreon.com/posts/jazzgpt-app-turn-151554600" target="_blank" rel="noopener" class="project-link">
+            Download <span class="arrow">↓</span>
+          </a>
+          <span class="project-link project-link-disabled">
+            Watch demo <span class="arrow">→</span>
+          </span>
+        </div>
+      </div>
+    </article>
+
   </section>
 
   <hr class="divider" />

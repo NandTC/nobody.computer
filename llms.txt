@@ -1,0 +1,27 @@
+# Nobody & The Computer
+
+> Films, music and strange experiments made with artificial intelligence.
+
+Nobody & The Computer is a creative project by an independent artist exploring AI-assisted filmmaking, generative music, and experimental digital art. All work is made by one person using artificial intelligence as a creative collaborator.
+
+## What this site is
+
+- Homepage and project catalog: https://nobody.computer
+- AI films: https://nobody.computer/films
+- JazzGPT MIDI tool: https://nobody.computer/jazzgpt
+
+## Projects
+
+### JazzGPT MIDI
+A tool that converts structured musical prompts into MIDI compositions, combining large language models with symbolic music generation.
+- More info: https://nobody.computer/jazzgpt
+- Download: https://www.patreon.com/posts/jazzgpt-app-turn-151554600
+
+## Links
+
+- YouTube: https://www.youtube.com/@nobodyandthecomputer
+- Patreon: https://patreon.com/NobodyandTheComputer
+
+## Keywords
+
+AI film, generative cinema, AI music tools, generative art, MIDI generation, LLM music, experimental film, AI creative tools, generative art experiments
